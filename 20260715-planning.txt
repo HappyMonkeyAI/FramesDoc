@@ -1,0 +1,63 @@
+Me: What do you think of this idea as an entry instead -  an automated system that analysis team meeting videos using a vision model and also the transcription of conversation to identify key bits of information in that it can link to in a documentation page such as one on Confluence. It's an old idea I had from a While ago, the basic premise behind the idea came about as we often have meetings that we recall where important information may be demoed for example in a terminal window during the meeting, a team member share how to use a new system as a tutorial with valuable commands being shown like a tutorial for the rest of the team to reference in future, with the idea being that it would be great to have a tool that you could point at the video and have it identify these key bits of information in frames in the video and to parts of it to identify and build a kind of documentation from it, which would have to be sort of like a manifest or manual I guess with extracted screenshots transcripted and OCR text perhaps grabbed by a vision model 4 key parts of information probably analysed by an LLM also to ensure it makes sense and is relevant Perhaps even with timestamps linking to where in the video this was, which would feedback into the idea of making it easier to find this information when perhaps a colleague says oh wasn't that in such and such a video rather than having to skip through five seconds at a time to find the exact screenshot of a terminal window showing the commands. I was thinking something like [https://github.com/joelibaceta/video-keyframe-detector](https://github.com/joelibaceta/video-keyframe-detector) and [https://github.com/memvid/memvid](https://github.com/memvid/memvid) might be of use perhaps?
+
+AI: As a **hackathon entry**, this idea is actually very strong, and in some ways it may fit the judging criteria well if you can get to a convincing demo quickly. The Build Week page says projects should be built with Codex using GPT-5.6, and judges will look at the working project, repo README, demo video, and how clearly Codex and GPT-5.6 were used in the implementation. Your concept naturally puts GPT-5.6 near the center of the product instead of bolting it on afterward, which is a real advantage. [openai](https://openai.com/build-week/)
+
+## Why it fits
+
+The core problem is easy to understand: teams lose valuable know-how inside meeting recordings, especially when important commands, UI states, demos, or decisions only appear briefly on screen. A system that detects key frames, reads OCR-visible content, combines that with transcript context, and turns the result into structured documentation with timestamps is a clear **Work & Productivity** or possibly **Developer Tools** submission. It also gives you a strong demo story: upload a meeting video, detect meaningful moments, generate a documentation page, and jump back to exact moments in the recording. [openai.devpost](https://openai.devpost.com/)
+
+## Product shape
+
+A good version of this project would have a pipeline like this: ingest meeting video, generate transcript, extract candidate keyframes, run vision/OCR on frames, ask GPT-5.6 to decide which moments are documentation-worthy, and output a structured page with sections like “Setup,” “Commands shown,” “Warnings,” “How-to steps,” and “Watch this clip.” The timestamp-linking idea is especially good because it turns the result from a passive summary into a navigable knowledge artifact. Framed well, this is not “meeting summarization”; it is “documentation generation from ephemeral team knowledge,” which is sharper and more memorable. [openai.devpost](https://openai.devpost.com/)
+
+## Implementation view
+
+The `video-keyframe-detector` repo is useful as a lightweight starting point because it extracts representative frames from video using frame-difference peak detection rather than trying to solve the whole problem for you. `memvid` looks more like a portable memory/retrieval layer for AI agents, so it could help if you want searchable long-term storage of extracted meeting artifacts, but it is not the core extraction engine by itself. For a hackathon, the leanest build is probably: keyframe extraction, transcript segmentation, OCR plus vision on selected frames, GPT-5.6 ranking/classification of useful moments, then export to Confluence-flavored markdown or HTML. [github](https://github.com/joelibaceta/video-keyframe-detector)
+
+## Risks
+
+The biggest risk is scope, not idea quality. If you try to do full enterprise ingestion, Confluence API sync, permissions, memory search, rich timeline UX, and perfect OCR/vision retrieval all in one week, you may end up with a thin prototype instead of a polished demo. The better move is to demo one narrow, believable workflow: “drop in a Zoom/Meet recording, get a generated runbook/tutorial with screenshots, commands, and deep links to the right timestamp.” [openai.devpost](https://openai.devpost.com/)
+
+## My take
+
+I think this is a good hackathon concept, and potentially competitive because the OpenAI usage is more central and more obvious to judges. If you want the strongest version, position it as an internal knowledge tool for engineering, support, and ops teams: it turns demos, incident reviews, and walkthrough meetings into living docs with cited frames and timestamps. A strong name could be **Briefing Room**, **FrameDoc**, **Runbook Replay**, **DocTrace**, or **Meeting Manual**. [openai.devpost](https://openai.devpost.com/)
+
+If you want, I can next help with three things: a sharper one-sentence pitch, the best hackathon category, and a stripped-down MVP plan you could realistically ship by July 21. [openai.devpost](https://openai.devpost.com/)
+
+Me: ok all 3 please
+
+AI: Yes — I think this is worth serious consideration, and here are the three pieces.
+
+## One-line pitch
+
+**Turn team meeting videos into searchable, timestamped documentation by extracting the moments that matter — commands, demos, decisions, and walkthrough steps — and publishing them as usable internal docs.**
+
+A tighter Devpost-style version would be: **An AI documentation agent that watches meeting recordings, finds the important on-screen moments, and turns them into linked runbooks and knowledge pages.**
+
+## Best category
+
+The best fit is **Work & Productivity** because OpenAI describes that track as tools that make teams faster or more effective, including workflow automation and back-office operations. Your idea is exactly that: it reduces time lost rewatching meetings and turns buried team knowledge into reusable documentation. [openai.devpost](https://openai.devpost.com/updates/45282-openai-build-week-submissions-are-open-plugin-launch)
+
+**Developer Tools** is the runner-up only if you narrow the audience to engineering teams and frame the output specifically as runbooks, terminal tutorials, incident notes, and developer knowledge capture. If you keep the broader “team meetings to documentation” framing, **Work & Productivity** is stronger and easier for judges to grasp. [openai.devpost](https://openai.devpost.com/updates/45282-openai-build-week-submissions-are-open-plugin-launch)
+
+## MVP plan
+
+Build the smallest believable loop: upload one meeting video, generate transcript, extract candidate keyframes, run OCR or vision on those frames, have GPT-5.6 classify which moments are documentation-worthy, then output a clean page with screenshots, extracted text, summaries, and timestamp links back into the video. That gives you a concrete “before and after” demo judges can understand in under a minute, which matters because the required demo video must be under 3 minutes and clearly explain what you built plus how Codex and GPT-5.6 were used. [openai](https://openai.com/index/gpt-5-6/)
+
+A realistic 5-part MVP:
+- **Input:** One uploaded MP4 and one-click processing.
+- **Extraction:** Use a keyframe detector to pull representative visual moments from the recording. [github](https://github.com/joelibaceta/video-keyframe-detector)
+- **Understanding:** Combine transcript chunks with OCR or frame understanding, then use GPT-5.6 to label moments like “terminal command,” “setup step,” “important decision,” or “demo workflow.” [openai](https://openai.com/index/gpt-5-6/)
+- **Output:** Generate markdown/HTML or a Confluence-ready page with section headings, screenshots, key commands, and timestamps.
+- **Retrieval:** Add simple search across extracted artifacts so “wasn’t that in the video?” becomes a fast lookup instead of scrubbing footage. [github](https://github.com/memvid/memvid)
+
+For the demo, use one especially visual recording — for example a meeting where someone shares a terminal, explains a deployment step, or walks through a new tool — because your value is highest when the important knowledge is both spoken and shown on screen. A weak demo would be a talking-head meeting with little on-screen content, because then it looks like ordinary meeting summarization rather than the richer documentation workflow you described.
+
+My honest view: this idea is naturally hackathon-aligned because GPT-5.6 is central to the core task, the product has a crisp workplace pain point, and the category fit is clearer under Work & Productivity. I would frame it as a documentation system for engineering and ops teams, but keep the category as **Work & Productivity** unless you intentionally make it a developer-first tool. [openai](https://openai.com/build-week/)
+
+Three name directions that fit the concept:
+- **Runbook Replay**
+- **FrameDoc**
+- **Briefing Room**
+
+My favorite is **FrameDoc** because it says exactly what the product does without sounding too enterprise-heavy.
