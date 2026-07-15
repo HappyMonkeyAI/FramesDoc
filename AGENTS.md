@@ -21,9 +21,10 @@ At the start of each session, read:
 
 1. `README.md`
 2. `CONTEXT.md`
-3. `HERMES.md`
-4. Relevant `.agent/memories/**` files
-5. The current task or planning note
+3. `DEMO.md` when working on the hackathon demonstration
+4. `HERMES.md`
+5. Relevant `.agent/memories/**` files
+6. The current task or planning note
 
 ## Product Focus
 

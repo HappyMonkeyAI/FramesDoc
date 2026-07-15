@@ -153,6 +153,7 @@ Override model names with `VIDEO_DOC_TRANSCRIPTION_MODEL` and `VIDEO_DOC_ANALYSI
 
 - `20260715-planning.txt` is the source planning conversation.
 - `CONTEXT.md` captures current architecture and constraints.
+- `DEMO.md` is the recording, rehearsal, evaluation, and live-pass runbook.
 - `AGENTS.md` contains project-specific agent rules.
 - `HERMES.md` records the local Agents Protocol operating loop.
 - `.agent/memories/` stores long-term memory for future agents.
