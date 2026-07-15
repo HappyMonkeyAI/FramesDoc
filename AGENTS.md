@@ -66,6 +66,15 @@ Use frontmatter fields `type`, `tags`, `created`, `related`, `blast_radius`, and
 
 If work needs more than three corrective passes, stop and replan. Use sub-agents only when the active runtime instructions permit delegation.
 
+## Verification Commands
+
+- Install/update: `uv sync --extra dev`
+- Tests: `uv run pytest`
+- Demo smoke test: `uv run video-doc <video> --demo`
+- Review UI: `uv run streamlit run app.py`
+
+Live model behavior requires `OPENAI_API_KEY`. Never treat demo-mode output as proof of live model quality.
+
 ## Demo Bias
 
 Every feature should support the hackathon demo:

@@ -2,64 +2,87 @@
 
 ## Current State
 
-This repository is newly bootstrapped from `20260715-planning.txt`. There is no application code or runnable quickstart yet.
+The repository contains a runnable vertical slice for one-video-to-one-document processing. It includes a CLI, Streamlit review UI, deterministic demo mode, OpenAI live adapter, hybrid frame selection, typed evidence contracts, Markdown/HTML rendering, and automated tests.
+
+Live model behavior is implemented against the current OpenAI SDK but remains unverified without an `OPENAI_API_KEY`. Local media processing and the complete demo-mode pipeline are verified.
 
 ## Product Intent
 
-Video Document Agent should convert meeting recordings into useful internal documentation by combining:
+Video Document Agent converts meeting recordings into useful internal documentation by combining:
 
-- Video keyframe extraction
-- Timestamped transcript segmentation
-- OCR or vision analysis of frames
-- LLM ranking and synthesis
-- Markdown, HTML, or Confluence-ready output
+- Hybrid keyframe extraction
+- Timestamped, speaker-labelled transcript segments
+- Vision analysis of frames
+- LLM ranking and structured synthesis
+- Evidence-backed Markdown and HTML output
 
-The strongest framing is **documentation generation from ephemeral team knowledge**, not ordinary meeting summarization.
+The product is **documentation generation from ephemeral team knowledge**, not ordinary meeting summarization.
 
-## Hackathon Context
+## Implemented Architecture
 
-The project targets the OpenAI Build Week Devpost event. The likely category is Work & Productivity, with Developer Tools as a secondary fit if the demo focuses on engineering runbooks.
-
-## MVP Architecture
-
-1. `video_ingest`: accept a local MP4 and derive duration/timestamp metadata.
-2. `transcript`: create or load transcript chunks with timestamps.
-3. `keyframes`: extract candidate frames from visual changes and scene transitions.
-4. `frame_understanding`: use OCR and/or vision analysis for each candidate frame.
-5. `moment_selection`: use an OpenAI model to select documentation-worthy moments and assign labels.
-6. `doc_generation`: emit markdown or HTML with evidence citations.
-7. `review_ui`: provide a minimal way to inspect source frames, timestamps, and generated sections.
+1. `media.probe_video`: inspect duration, dimensions, frame rate, and audio availability with ffprobe.
+2. `media.extract_audio`: produce mono 16 kHz WAV with FFmpeg.
+3. `OpenAIDocumentAgent.transcribe`: request diarized transcript segments.
+4. `media.select_frames`: combine periodic samples, PySceneDetect boundaries, transcript cues, and perceptual novelty.
+5. `OpenAIDocumentAgent.create_document`: send numbered frames plus nearby transcript through GPT-5.6 Structured Outputs.
+6. `_reattach_evidence`: map model-selected frame indexes back to local paths and timestamps, and ground transcript quotations locally.
+7. `render`: emit Markdown and portable HTML with media-fragment timestamp links.
+8. `pipeline`: persist all intermediate artifacts and a typed JSON manifest.
+9. `app.py`: show the video, evidence cards, commands, transcript quotes, limitations, and downloads.
 
 ## Evidence Contract
 
-Each generated section should retain:
+Each generated documentation moment retains:
 
-- `video_timestamp`
+- `timestamp`
 - `frame_path`
 - `transcript_start` and `transcript_end`
-- `visible_text` or a structured frame observation
-- `model_label`
+- A locally grounded `transcript_quote`
+- `visible_text`
+- `commands`
+- `kind`
+- `confidence`
 
-This contract prevents the output from becoming an unsupported summary.
+The model returns a `frame_index`, not an arbitrary evidence path or timestamp. The application owns the final source mapping and discards transcript quotations that cannot be grounded in the closest source segment.
 
-## Tooling Candidates
+## Stack
 
-- `video-keyframe-detector`: reference for frame-difference-based keyframe extraction.
-- `memvid`: possible later retrieval layer; not required for the first extraction loop.
-- OpenAI multimodal and text models: central to moment understanding, classification, and documentation synthesis.
+- Python 3.12+
+- `uv` and `pyproject.toml`
+- FFmpeg/ffprobe
+- PySceneDetect and OpenCV
+- Pillow and NumPy for perceptual novelty
+- OpenAI Python SDK and Pydantic Structured Outputs
+- Streamlit
+- pytest
 
-These are candidates from the planning note, not installed dependencies or finalized choices.
+## Model Choices
+
+- `gpt-4o-transcribe-diarize` for meeting transcript segments and speaker labels.
+- `gpt-5.6` for image understanding and structured documentation synthesis.
+- `detail: original` for frames because terminal and UI screenshots contain dense text.
+
+The analysis model accepts images rather than video, so audio and frame extraction remain explicit pipeline stages.
 
 ## Constraints
 
-- Keep the first implementation local-first.
-- Prefer inspectable intermediate artifacts over opaque one-shot generation.
-- Avoid Confluence API work until markdown/HTML output is credible.
-- Use small sample videos for smoke tests and demos.
+- Keep the workflow local-first and artifacts inspectable.
+- Treat extracted commands as review-required evidence, never automatically executable instructions.
+- Keep frame count bounded for cost and latency.
+- Avoid Confluence work until the reviewable local document is convincing.
+- Use a short, visually rich meeting recording for the demo.
 
 ## What Not To Do
 
 - Do not build a generic meeting summary tool.
-- Do not start with enterprise integrations.
-- Do not discard timestamps or frame evidence after synthesis.
-- Do not optimize for broad video search before the one-video document loop works.
+- Do not allow model output to define source paths or timestamps.
+- Do not discard intermediate frames or transcript spans.
+- Do not introduce multi-video retrieval before the single-video loop is evaluated on real meetings.
+- Do not present deterministic demo-mode text as model analysis.
+
+## Next Validation Targets
+
+1. Run live mode on a 3–5 minute terminal walkthrough.
+2. Measure useful-moment recall and redundant-frame rate.
+3. Compare GPT-5.6 visible text against a deterministic OCR engine on command-heavy frames.
+4. Add a human accept/edit/reject step before export.

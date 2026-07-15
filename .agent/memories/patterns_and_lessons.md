@@ -15,6 +15,9 @@ confidence: high
 - Preserve intermediate artifacts so extraction, model selection, and document generation can be inspected independently.
 - Treat timestamps, frames, and transcript spans as first-class data, not metadata to discard after summarization.
 - Position the product as documentation generation from visual team knowledge, which is sharper than generic meeting summarization.
+- Have the model select numbered evidence, then reattach provenance locally.
+- Keep a deterministic mode that exercises real media processing while clearly labelling synthetic analysis.
+- Use transcript cues to preserve documentation-worthy frames even when visual novelty is low.
 
 ## Failure Lessons To Avoid
 
@@ -22,3 +25,5 @@ confidence: high
 - Adding multi-video retrieval before one-video extraction works weakens the demo.
 - Talking-head recordings with little screen content make the product look like ordinary meeting summarization.
 - Copying generic bootstrap examples into project memory creates false history; only repository-grounded findings belong here.
+- Scene-change detection alone misses small but important terminal and UI changes.
+- A broad transcript window is useful model context but too imprecise as the persisted citation span; attach the closest source segment instead.

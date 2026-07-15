@@ -6,38 +6,101 @@ Video Document Agent turns team meeting recordings into timestamped internal doc
 
 An AI documentation agent that watches meeting recordings, finds the important on-screen moments, and turns them into linked runbooks and knowledge pages.
 
-## Status
+## Current Vertical Slice
 
-Protocol and project-planning bootstrap only. Application code has not been implemented yet, so there is no runnable quickstart.
+The runnable MVP accepts one local video and produces:
 
-## MVP Scope
+- Speaker-labelled transcript segments in live mode
+- Hybrid keyframes selected from scene changes, periodic sampling, transcript cues, and visual novelty
+- GPT-5.6-generated setup, command, warning, decision, workflow, and reference moments
+- Locally reattached evidence paths and timestamps that model output cannot override
+- `manifest.json`, `document.md`, `document.html`, source video, audio, and extracted frames
+- A Streamlit review/download interface
 
-The first demo should prove one narrow workflow:
+Deterministic demo mode performs real media probing and frame extraction but uses clearly labelled synthetic transcript and document content. This makes the pipeline runnable without credentials and keeps tests independent of model availability.
 
-1. Upload or point to one MP4 meeting recording.
-2. Generate or ingest a timestamped transcript.
-3. Extract representative keyframes.
-4. Run OCR or vision analysis on candidate frames.
-5. Use an OpenAI model to classify documentation-worthy moments.
-6. Generate markdown or HTML with screenshots, transcript context, extracted commands, and timestamps back to the video.
+## Prerequisites
 
-## Target Output
+- Python 3.12 or newer
+- [uv](https://docs.astral.sh/uv/)
+- FFmpeg and ffprobe on `PATH`
+- An OpenAI API key for live mode
 
-The generated page should include:
+## Quickstart
 
-- Sections such as setup, commands shown, warnings, decisions, and workflow steps
-- Screenshots for key visual moments
-- Extracted visible text or command snippets
-- Transcript-backed summaries
-- Timestamp links or timestamp references
+Install the locked environment:
 
-## Non-Goals For The First Slice
+```sh
+uv sync --extra dev
+```
+
+Run the deterministic local workflow:
+
+```sh
+uv run video-doc path/to/meeting.mp4 --demo
+```
+
+Run live analysis:
+
+```sh
+export OPENAI_API_KEY="your-key"
+uv run video-doc path/to/meeting.mp4
+```
+
+`.env.example` documents the supported environment variables; the application reads them from the process environment.
+
+Launch the review UI:
+
+```sh
+uv run streamlit run app.py
+```
+
+Run the test suite:
+
+```sh
+uv run pytest
+```
+
+## Artifact Layout
+
+Each video is stored under a content-derived job identifier:
+
+```text
+artifacts/<video-hash>/
+├── source.mp4
+├── audio.wav
+├── frames/
+│   └── frame-<index>-<timestamp-ms>.jpg
+├── manifest.json
+├── document.md
+└── document.html
+```
+
+Every documentation moment retains its source timestamp, frame path, transcript span, visible text, commands, classification, and confidence. Markdown and HTML timestamps link back to a media-fragment URL such as `source.mp4#t=12.500`.
+
+## Model Defaults
+
+- Transcription: `gpt-4o-transcribe-diarize`
+- Evidence selection and documentation synthesis: `gpt-5.6`
+- Frame detail: `original`, because terminal and UI text can be spatially dense
+
+Override model names with `VIDEO_DOC_TRANSCRIPTION_MODEL` and `VIDEO_DOC_ANALYSIS_MODEL`.
+
+## Non-Goals For This Slice
 
 - Full enterprise video ingestion
-- Perfect Confluence synchronization
+- Confluence synchronization
 - Permission and identity management
 - Long-term semantic search across many recordings
-- Polished team administration features
+- Browser or desktop meeting capture
+- Perfect OCR or command verification
+
+## Known Limitations
+
+- Live OpenAI calls require credentials and were not exercised during the credential-free bootstrap.
+- Scene detection and perceptual hashes are candidate filters, not guarantees that every useful terminal change is found.
+- Model-read visible text should be reviewed before commands are executed.
+- The HTML export is deliberately minimal; the Streamlit UI is the primary review experience.
 
 ## Project Docs
 
@@ -47,4 +110,4 @@ The generated page should include:
 - `HERMES.md` records the local Agents Protocol operating loop.
 - `.agent/memories/` stores long-term memory for future agents.
 - `docs/adr/` stores architecture decision records.
-- `research/` stores external references and notes.
+- `research/LINKS.md` records evaluated external projects and official documentation.

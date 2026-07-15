@@ -1,0 +1,35 @@
+[project]
+name = "video-document-agent"
+version = "0.1.0"
+description = "Turn meeting recordings into evidence-backed, timestamped documentation."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "numpy>=2.0",
+  "openai>=2.0",
+  "opencv-python>=5.0",
+  "pillow>=11.0",
+  "pydantic>=2.11",
+  "scenedetect>=0.7",
+  "streamlit>=1.46",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4",
+  "pytest-cov>=6.2",
+]
+
+[project.scripts]
+video-doc = "video_document_agent.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/video_document_agent"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
