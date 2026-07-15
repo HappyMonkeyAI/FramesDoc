@@ -248,7 +248,7 @@ class DemoDocumentAgent:
                     transcript_start=closest.start if closest else frame.timestamp,
                     transcript_end=closest.end if closest else frame.timestamp,
                     transcript_quote=closest.text if closest else "",
-                    visible_text="Demo mode does not perform OCR.",
+                    visible_text="",
                     commands=["uv run video-doc input.mp4 --demo"] if index == 1 else [],
                     confidence=0.5,
                 )
@@ -257,5 +257,7 @@ class DemoDocumentAgent:
             title="Evidence-backed demo runbook",
             overview="A deterministic demonstration of the video-to-document artifact contract.",
             moments=moments,
-            limitations=["Demo mode uses synthetic transcript and document content; frames are real."],
+            limitations=[
+                "Deterministic analysis uses template document content; OCR, when enabled, is attached separately."
+            ],
         )

@@ -71,9 +71,12 @@ If work needs more than three corrective passes, stop and replan. Use sub-agents
 - Install/update: `uv sync --extra dev`
 - Tests: `uv run pytest`
 - Demo smoke test: `uv run video-doc <video> --demo`
+- Keyless real-transcript test: `uv run video-doc <video> --demo --transcript <meeting.vtt>`
+- OCR smoke test: `uv run video-doc <video> --demo --transcript <meeting.vtt> --ocr auto`
+- Evaluation: `uv run video-doc-eval <manifest.json> <fixture.json>`
 - Review UI: `uv run streamlit run app.py`
 
-Live model behavior requires `OPENAI_API_KEY`. Never treat demo-mode output as proof of live model quality.
+Live model behavior requires `OPENAI_API_KEY`. Never treat deterministic output, even with a real sidecar transcript, as proof of live model quality.
 
 ## Demo Bias
 

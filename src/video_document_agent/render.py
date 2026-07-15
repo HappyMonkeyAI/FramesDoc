@@ -32,6 +32,19 @@ def render_markdown(document: GeneratedDocument, video_path: Path, output_path: 
             lines.extend(["### Commands", "", "```sh", *moment.commands, "```", ""])
         if moment.visible_text:
             lines.extend(["### Visible text", "", "```text", moment.visible_text, "```", ""])
+        if moment.ocr_text:
+            confidence = (
+                f" ({moment.ocr_confidence:.0%} mean word confidence)"
+                if moment.ocr_confidence is not None
+                else ""
+            )
+            lines.extend(
+                ["### OCR corroboration" + confidence, "", "```text", moment.ocr_text, "```", ""]
+            )
+            if moment.command_ocr_agreement is not None:
+                lines.extend(
+                    [f"Command/OCR agreement: {moment.command_ocr_agreement:.0%}", ""]
+                )
         if moment.transcript_quote:
             lines.extend(
                 [
@@ -55,7 +68,7 @@ def render_html(document: GeneratedDocument, video_path: Path, output_path: Path
     sections: list[str] = []
     for index, moment in enumerate(document.moments, start=1):
         timestamp = format_timestamp(moment.timestamp)
-        commands = "".join(f"<code>{html.escape(command)}</code>" for command in moment.commands)
+        commands = "\n".join(html.escape(command) for command in moment.commands)
         sections.append(
             f"""<article>
 <h2>{index}. {html.escape(moment.title)}</h2>
@@ -64,7 +77,9 @@ def render_html(document: GeneratedDocument, video_path: Path, output_path: Path
 <img src="frames/{html.escape(moment.frame_path.name)}" alt="Evidence at {timestamp}">
 {f'<h3>Commands</h3><pre>{commands}</pre>' if commands else ''}
 {f'<h3>Visible text</h3><pre>{html.escape(moment.visible_text)}</pre>' if moment.visible_text else ''}
-{f'<h3>Transcript evidence</h3><blockquote>{html.escape(moment.transcript_quote)}</blockquote>' if moment.transcript_quote else ''}
+{f'<h3>OCR corroboration ({moment.ocr_confidence:.0%} mean word confidence)</h3><pre>{html.escape(moment.ocr_text)}</pre>' if moment.ocr_text and moment.ocr_confidence is not None else ''}
+{f'<p>Command/OCR agreement: {moment.command_ocr_agreement:.0%}</p>' if moment.command_ocr_agreement is not None else ''}
+{f'<h3>Transcript evidence</h3><blockquote>{html.escape(moment.transcript_quote)}</blockquote><p>Span: {format_timestamp(moment.transcript_start)}–{format_timestamp(moment.transcript_end)}</p>' if moment.transcript_quote else ''}
 </article>"""
         )
     limitations = "".join(f"<li>{html.escape(item)}</li>" for item in document.limitations)
@@ -78,4 +93,3 @@ def render_html(document: GeneratedDocument, video_path: Path, output_path: Path
 </main></body></html>"""
     output_path.write_text(page, encoding="utf-8")
     return output_path
-

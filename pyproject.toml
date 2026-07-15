@@ -22,6 +22,7 @@ dev = [
 
 [project.scripts]
 video-doc = "video_document_agent.cli:main"
+video-doc-eval = "video_document_agent.eval_cli:main"
 
 [build-system]
 requires = ["hatchling"]

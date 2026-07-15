@@ -10,20 +10,23 @@ An AI documentation agent that watches meeting recordings, finds the important o
 
 The runnable MVP accepts one local video and produces:
 
-- Speaker-labelled transcript segments in live mode
+- Speaker-labelled transcript segments from OpenAI or SRT/VTT/JSON sidecars
 - Hybrid keyframes selected from scene changes, periodic sampling, transcript cues, and visual novelty
+- Optional Tesseract OCR with word confidence, bounding boxes, and command-text agreement
 - GPT-5.6-generated setup, command, warning, decision, workflow, and reference moments
 - Locally reattached evidence paths and timestamps that model output cannot override
 - `manifest.json`, `document.md`, `document.html`, source video, audio, and extracted frames
-- A Streamlit review/download interface
+- A Streamlit accept/edit/reject workflow with separate reviewed exports
+- Labelled evaluation for moment recall, visual redundancy, evidence grounding, and OCR agreement
 
-Deterministic demo mode performs real media probing and frame extraction but uses clearly labelled synthetic transcript and document content. This makes the pipeline runnable without credentials and keeps tests independent of model availability.
+Deterministic mode performs real media probing and frame extraction. Without a sidecar it uses a synthetic transcript; with `--transcript` it uses the supplied real transcript for frame cues and evidence quotations. Document analysis remains deterministic and clearly labelled, making the complete workflow runnable without credentials.
 
 ## Prerequisites
 
 - Python 3.12 or newer
 - [uv](https://docs.astral.sh/uv/)
 - FFmpeg and ffprobe on `PATH`
+- Tesseract on `PATH` for optional local OCR
 - An OpenAI API key for live mode
 
 ## Quickstart
@@ -39,6 +42,20 @@ Run the deterministic local workflow:
 ```sh
 uv run video-doc path/to/meeting.mp4 --demo
 ```
+
+Run keyless with a real timestamped transcript:
+
+```sh
+uv run video-doc path/to/meeting.mp4 --demo --transcript path/to/meeting.vtt
+```
+
+Enable locally installed OCR corroboration:
+
+```sh
+uv run video-doc path/to/meeting.mp4 --demo --transcript path/to/meeting.vtt --ocr auto
+```
+
+Supported sidecars are SRT, WebVTT, and JSON. JSON may be a segment list or an object with a `segments` list; each segment needs `start`, `end`, and `text`, with optional `speaker`.
 
 Run live analysis:
 
@@ -61,22 +78,50 @@ Run the test suite:
 uv run pytest
 ```
 
+Evaluate a generated manifest against human-labelled moments:
+
+```sh
+uv run video-doc-eval artifacts/<job>/manifest.json evaluation/fixtures/demo-runbook.json
+```
+
 ## Artifact Layout
 
 Each video is stored under a content-derived job identifier:
 
 ```text
-artifacts/<video-hash>/
+artifacts/<content-hash>/
 ├── source.mp4
-├── audio.wav
+├── audio.wav                 # when audio extraction is needed
+├── transcript.vtt           # when a sidecar is supplied
+├── ocr.json                 # when OCR is enabled
 ├── frames/
 │   └── frame-<index>-<timestamp-ms>.jpg
 ├── manifest.json
 ├── document.md
-└── document.html
+├── document.html
+├── review.json              # after human review
+├── manifest-reviewed.json
+├── document-reviewed.md
+├── document-reviewed.html
+└── evaluation.json          # after running video-doc-eval
 ```
 
+The job identifier hashes both video and sidecar content, preventing different transcripts for the same video from overwriting each other. Original generated artifacts remain unchanged when a review is saved. Reviewers may adjust transcript spans, while the source video timestamp and frame path stay immutable.
+
 Every documentation moment retains its source timestamp, frame path, transcript span, visible text, commands, classification, and confidence. Markdown and HTML timestamps link back to a media-fragment URL such as `source.mp4#t=12.500`.
+
+OCR text never overwrites model-visible text. The manifest retains both sources plus the normalized agreement score for extracted commands. `ocr.json` also retains word-level locations and confidence values.
+
+## Evaluation
+
+Evaluation fixtures are independent JSON labels rather than snapshots of generated output. Current metrics are:
+
+- Useful-moment recall within labelled timestamp windows and optional kinds
+- Visual redundancy among selected frame pairs
+- Evidence-grounding rate for frame/timestamp and transcript quotations
+- Command/OCR agreement when both signals exist
+
+See `evaluation/README.md`. The included fixture is a schema and smoke-test example; label the actual hackathon recording before reporting its metrics.
 
 ## Model Defaults
 
@@ -98,6 +143,8 @@ Override model names with `VIDEO_DOC_TRANSCRIPTION_MODEL` and `VIDEO_DOC_ANALYSI
 ## Known Limitations
 
 - Live OpenAI calls require credentials and were not exercised during the credential-free bootstrap.
+- Deterministic mode uses transcript evidence but does not interpret frame contents or replace GPT-5.6 synthesis quality.
+- Tesseract confidence is an engine signal, not proof that command text is correct; command/OCR agreement is also heuristic.
 - Scene detection and perceptual hashes are candidate filters, not guarantees that every useful terminal change is found.
 - Model-read visible text should be reviewed before commands are executed.
 - The HTML export is deliberately minimal; the Streamlit UI is the primary review experience.

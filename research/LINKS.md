@@ -2,6 +2,14 @@
 
 Research was reviewed on 2026-07-15. “Use” describes current intent, not an installed or shipped integration unless explicitly stated.
 
+## Transcript Sidecar Standards
+
+- WebVTT specification: https://www.w3.org/TR/webvtt1/
+- SubRip SRT format description: https://www.loc.gov/preservation/digital/formats/fdd/fdd000569.shtml
+- Use: Keyless timestamped transcript interchange from meeting platforms and caption exporters.
+- Applied: Local SRT/VTT import, WebVTT voice-tag parsing, speaker-prefix parsing, and transcript-driven frame cues.
+- JSON extension: Accept a simple typed segment list for programmatic fixtures and integrations.
+
 ## OpenAI Build Week / Devpost
 
 - URL: https://openai.devpost.com/
@@ -57,6 +65,16 @@ Research was reviewed on 2026-07-15. “Use” describes current intent, not an 
 - Use: Candidate deterministic OCR corroboration for command-heavy frames.
 - Cherry-pick: Text boxes and structured coordinates for reviewing terminal/UI text.
 - Avoid: Adding the full document parsing stack before measuring GPT-5.6 command accuracy.
+
+## Tesseract OCR
+
+- Repository: https://github.com/tesseract-ocr/tesseract
+- Command-line TSV reference: https://github.com/tesseract-ocr/tesseract/wiki/Command-Line-Usage
+- License: Apache-2.0; Leptonica has its own BSD-2-Clause terms.
+- Use: Lightweight local corroboration for selected English-language terminal and UI frames.
+- Applied: Optional subprocess integration, TSV word boxes/confidence, `ocr.json`, and command-text agreement.
+- Observed: The generated OCR smoke video read `uv sync` with 95% mean word confidence.
+- Avoid: Treating confidence or string similarity as correctness; PaddleOCR remains a later multilingual/complex-layout comparator.
 
 ## video-analyzer
 

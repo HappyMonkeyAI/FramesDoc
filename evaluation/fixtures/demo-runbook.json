@@ -1,0 +1,24 @@
+{
+  "name": "12-second demo runbook",
+  "redundancy_threshold": 0.12,
+  "expected_moments": [
+    {
+      "label": "prepare workspace",
+      "timestamp": 0.0,
+      "tolerance": 1.0,
+      "kind": "setup"
+    },
+    {
+      "label": "run setup command",
+      "timestamp": 4.0,
+      "tolerance": 1.0,
+      "kind": "command"
+    },
+    {
+      "label": "retain evidence warning",
+      "timestamp": 9.0,
+      "tolerance": 1.0,
+      "kind": "warning"
+    }
+  ]
+}
