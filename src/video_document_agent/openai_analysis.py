@@ -22,7 +22,9 @@ Do not produce a generic meeting summary. Select only moments that support setup
 commands, warnings, decisions, workflows, or references. Every moment must point to one
 provided frame index. Copy commands and visible text conservatively; never invent text
 that is not visible or supported by the transcript. Return limitations when evidence is
-ambiguous. Prefer a small number of high-value moments over exhaustive narration."""
+ambiguous. Prefer a small number of high-value moments over exhaustive narration.
+
+Note: The input images are provided in the exact order of their frame indices (the first image corresponds to FRAME 0, the second image to FRAME 1, the third image to FRAME 2, etc.). Use the visual evidence in each image to correctly identify which FRAME contains the setup steps, commands, or warnings."""
 
 
 def _data_url(path: Path) -> str:
@@ -73,10 +75,11 @@ class OpenAIDocumentAgent:
         self,
         *,
         api_key: str | None = None,
+        base_url: str | None = None,
         transcription_model: str = "gpt-4o-transcribe-diarize",
         analysis_model: str = "gpt-5.6",
     ) -> None:
-        self.client = OpenAI(api_key=api_key)
+        self.client = OpenAI(api_key=api_key, base_url=base_url)
         self.transcription_model = transcription_model
         self.analysis_model = analysis_model
 
@@ -103,21 +106,21 @@ class OpenAIDocumentAgent:
         frames: list[FrameCandidate],
         transcript: list[TranscriptSegment],
     ) -> GeneratedDocument:
-        content: list[dict[str, str]] = [
+        # 1. Content for Responses API (new OpenAI responses endpoint) - Interleaved
+        content_responses: list[dict[str, str]] = [
             {
                 "type": "input_text",
-                "text": (
-                    "Analyze the numbered evidence frames and their nearby transcript. "
-                    "Use frame_index values exactly as provided.\n\n"
-                    + "\n\n".join(
-                        _frame_context(index, frame, nearby_transcript(frame.timestamp, transcript))
-                        for index, frame in enumerate(frames)
-                    )
-                ),
+                "text": "Analyze the numbered evidence frames and their nearby transcript. Use frame_index values exactly as provided.\n\n",
             }
         ]
-        for frame in frames:
-            content.append(
+        for index, frame in enumerate(frames):
+            content_responses.append(
+                {
+                    "type": "input_text",
+                    "text": _frame_context(index, frame, nearby_transcript(frame.timestamp, transcript)),
+                }
+            )
+            content_responses.append(
                 {
                     "type": "input_image",
                     "image_url": _data_url(frame.frame_path),
@@ -125,17 +128,73 @@ class OpenAIDocumentAgent:
                 }
             )
 
-        response = self.client.responses.parse(
-            model=self.analysis_model,
-            input=[
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": content},
-            ],
-            text_format=ModelDocument,
-        )
-        parsed = response.output_parsed
+        # 2. Content for standard Chat Completions API (used by local models / LM Studio) - Interleaved
+        content_chat: list[dict[str, any]] = [
+            {
+                "type": "text",
+                "text": "Analyze the numbered evidence frames and their nearby transcript. Use frame_index values exactly as provided.\n\n",
+            }
+        ]
+        for index, frame in enumerate(frames):
+            content_chat.append(
+                {
+                    "type": "text",
+                    "text": _frame_context(index, frame, nearby_transcript(frame.timestamp, transcript)),
+                }
+            )
+            content_chat.append(
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": _data_url(frame.frame_path),
+                        "detail": "high",
+                    },
+                }
+            )
+
+        # Determine if we should attempt /responses or default to chat/completions
+        is_local = "api.openai.com" not in str(self.client.base_url)
+        parsed = None
+
+        if not is_local:
+            try:
+                response = self.client.responses.parse(
+                    model=self.analysis_model,
+                    input=[
+                        {"role": "system", "content": SYSTEM_PROMPT},
+                        {"role": "user", "content": content_responses},
+                    ],
+                    text_format=ModelDocument,
+                )
+                parsed = response.output_parsed
+            except Exception:
+                # Fall back if the responses endpoint is unsupported
+                pass
+
         if parsed is None:
-            raise RuntimeError("OpenAI returned no structured document")
+            # Fall back to standard Chat Completions with JSON Schema response format
+            messages = [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": content_chat},
+            ]
+            schema = ModelDocument.model_json_schema()
+            response = self.client.chat.completions.create(
+                model=self.analysis_model,
+                messages=messages,
+                response_format={
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "ModelDocument",
+                        "schema": schema,
+                    }
+                },
+            )
+            content = response.choices[0].message.content
+            if content:
+                parsed = ModelDocument.model_validate_json(content)
+
+        if parsed is None:
+            raise RuntimeError("LLM client returned no structured document")
         return _reattach_evidence(parsed, frames, transcript)
 
 
@@ -145,7 +204,7 @@ def _frame_context(
     transcript: list[TranscriptSegment],
 ) -> str:
     lines = [
-        f"FRAME {index}",
+        f"FRAME {index} (Note: This corresponds to Vision Image #{index + 1} below)",
         f"timestamp_seconds: {frame.timestamp:.3f}",
         f"candidate_sources: {', '.join(frame.sources)}",
         "nearby_transcript:",

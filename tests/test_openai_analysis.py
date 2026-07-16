@@ -66,3 +66,57 @@ def test_model_output_cannot_override_local_evidence_path() -> None:
     assert document.moments[0].frame_path == Path("frames/real.jpg")
     assert document.moments[0].timestamp == 5
     assert document.moments[0].transcript_start == 4
+
+
+def test_create_document_chat_completions_fallback(monkeypatch) -> None:
+    from unittest.mock import MagicMock
+    import video_document_agent.openai_analysis
+    from video_document_agent.openai_analysis import OpenAIDocumentAgent
+    from video_document_agent.models import ModelMoment
+
+    monkeypatch.setattr(video_document_agent.openai_analysis, "_data_url", lambda path: "data:image/jpeg;base64,mock")
+
+    agent = OpenAIDocumentAgent(api_key="mock", base_url="http://192.168.5.157:1234/v1")
+
+    # Mock chat.completions.create
+    mock_response = MagicMock()
+    mock_parsed = ModelDocument(
+        title="Local Runbook",
+        overview="Overview of local test",
+        moments=[
+            ModelMoment(
+                frame_index=0,
+                title="Local setup step",
+                kind="setup",
+                summary="Execute setup step",
+                commands=["uv sync"],
+                confidence=0.95
+            )
+        ]
+    )
+    mock_response.choices[0].message.content = mock_parsed.model_dump_json()
+    agent.client.chat.completions.create = MagicMock(return_value=mock_response)
+
+    # We also mock responses.parse just in case it is called (it shouldn't be since is_local is True)
+    agent.client.responses.parse = MagicMock(side_effect=RuntimeError("Should not call responses API on local"))
+
+    frames = [
+        FrameCandidate(
+            timestamp=2.5,
+            frame_path=Path("frames/frame1.jpg"),
+            sources=["periodic"],
+            novelty_score=0.5,
+        )
+    ]
+    transcript = [TranscriptSegment(start=1.0, end=4.0, speaker="Stephen", text="Run uv sync first.")]
+
+    doc = agent.create_document(frames, transcript)
+
+    assert doc.title == "Local Runbook"
+    assert doc.moments[0].timestamp == 2.5
+    assert doc.moments[0].transcript_quote == "Run uv sync first."
+
+    # Check that chat.completions.create was called, and responses.parse was NOT
+    assert agent.client.chat.completions.create.called
+    assert not agent.client.responses.parse.called
+
