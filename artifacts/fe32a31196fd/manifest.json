@@ -1,0 +1,1216 @@
+{
+  "source_video": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/source.mp4",
+  "metadata": {
+    "duration_seconds": 10.0,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "has_audio": true
+  },
+  "transcript": [
+    {
+      "start": 0.0,
+      "end": 2.4,
+      "speaker": "UNKNOWN",
+      "text": "To center that div, we will use Flexbox."
+    },
+    {
+      "start": 2.4,
+      "end": 5.04,
+      "speaker": "UNKNOWN",
+      "text": "Just add justify content and item center."
+    },
+    {
+      "start": 5.04,
+      "end": 8.04,
+      "speaker": "UNKNOWN",
+      "text": "Now to exit VIM, hit Escape, then colon wq! to save."
+    },
+    {
+      "start": 8.04,
+      "end": 9.2,
+      "speaker": "UNKNOWN",
+      "text": "Ah, that makes perfect sense."
+    },
+    {
+      "start": 9.2,
+      "end": 10.04,
+      "speaker": "UNKNOWN",
+      "text": "Thank you."
+    }
+  ],
+  "frames": [
+    {
+      "timestamp": 0.0,
+      "frame_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/frames/frame-0000-0000000000.jpg",
+      "sources": [
+        "periodic"
+      ],
+      "novelty_score": 1.0
+    },
+    {
+      "timestamp": 5.04,
+      "frame_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/frames/frame-0001-0000005040.jpg",
+      "sources": [
+        "transcript_cue"
+      ],
+      "novelty_score": 0.015625
+    }
+  ],
+  "document": {
+    "title": "Centering a Child Element with Flexbox in Vim",
+    "overview": "The evidence shows the container CSS updated to use Flexbox for horizontal and vertical centering, followed by instructions to save and exit Vim.",
+    "moments": [
+      {
+        "title": "Add Flexbox centering to the container",
+        "kind": "setup",
+        "summary": "Set the container to a flex layout, then center its child on both axes with `justify-content` and `align-items`.",
+        "timestamp": 5.04,
+        "frame_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/frames/frame-0001-0000005040.jpg",
+        "transcript_start": 5.04,
+        "transcript_end": 8.04,
+        "transcript_quote": "Now to exit VIM, hit Escape, then colon wq! to save.",
+        "visible_text": ".container {\n  width: 500px;\n  height: 250px;\n  margin: 50px;\n  outline: solid 1px black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}",
+        "commands": [
+          "display: flex;",
+          "justify-content: center;",
+          "align-items: center;"
+        ],
+        "confidence": 0.99,
+        "ocr_text": "\u00a9 wm X 192168.5.215 : 40 o x @ Center A div so\n<html> \u20ac CO 12001888.. Y OE \u00a9 Gla FD FQ - Gor\n<head>\n<titlecenter A Div</title>\n<style>\n\u00abcontainer {\nwidth: 509px; ry\nmargin: 50px;\noutline: solid 1px black;\ndisplay: flex;\njustify-content: center;\nalign-items: center;\n}\n-circle {\nborder-radius: 50%;\nbackground-color: black;\n}\n</style>\n</head>\n<body>\n<div class=\"container\">\n<div class=\"circle\">\n</div>\n</div>\n</body>\n</html>",
+        "ocr_confidence": 0.716197970909091,
+        "command_ocr_agreement": 1.0
+      },
+      {
+        "title": "Save and exit Vim",
+        "kind": "command",
+        "summary": "Leave insert mode with Escape, then use the Vim write-and-quit command with force.",
+        "timestamp": 5.04,
+        "frame_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/frames/frame-0001-0000005040.jpg",
+        "transcript_start": 5.04,
+        "transcript_end": 8.04,
+        "transcript_quote": "Now to exit VIM, hit Escape, then colon wq! to save.",
+        "visible_text": ":",
+        "commands": [
+          "Escape",
+          ":wq!"
+        ],
+        "confidence": 0.94,
+        "ocr_text": "\u00a9 wm X 192168.5.215 : 40 o x @ Center A div so\n<html> \u20ac CO 12001888.. Y OE \u00a9 Gla FD FQ - Gor\n<head>\n<titlecenter A Div</title>\n<style>\n\u00abcontainer {\nwidth: 509px; ry\nmargin: 50px;\noutline: solid 1px black;\ndisplay: flex;\njustify-content: center;\nalign-items: center;\n}\n-circle {\nborder-radius: 50%;\nbackground-color: black;\n}\n</style>\n</head>\n<body>\n<div class=\"container\">\n<div class=\"circle\">\n</div>\n</div>\n</body>\n</html>",
+        "ocr_confidence": 0.716197970909091,
+        "command_ocr_agreement": 0.4
+      }
+    ],
+    "limitations": [
+      "The browser preview in frame 1 still shows the circle at the upper-left of the container, so the centered result is not visually confirmed; the page may not yet have been saved or refreshed.",
+      "Only the initial colon is visible on Vim's command line. The full `:wq!` command is supported by the transcript rather than shown completely in the frame."
+    ]
+  },
+  "markdown_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/document.md",
+  "html_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/document.html",
+  "demo_mode": false,
+  "transcript_source": "sidecar",
+  "transcript_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/transcript.vtt",
+  "ocr": [
+    {
+      "timestamp": 0.0,
+      "frame_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/frames/frame-0000-0000000000.jpg",
+      "engine": "tesseract",
+      "text": "\u00a9 m= X 192.168.5.215 t 4 0 o x iv] a] @ Center A div *\n<html> \u20ac CO 20018.. 6 FO G14 FD FQ ~ Gora\n<head>\n<title>center A Div</title>\n<style>\n\u00abcontainer { r\nmargin: S50px;\noutline: solid 1px black;\n}\n\u00abcircle {\nwidth: 50px;\nheight: 50px;\nborder-radius: 50%;\nbackground-color: black;\n}\n</style>\n</head>\n<body>\n<div class=\"container\">\n<div class=\"circle\">\n</div>\n</div>\n</body>\n</html>\n-- INSERT -- 9,31-52 ALL",
+      "mean_confidence": 0.693758597826087,
+      "words": [
+        {
+          "text": "\u00a9",
+          "confidence": 0.8732053399999999,
+          "left": 159,
+          "top": 24,
+          "width": 16,
+          "height": 14
+        },
+        {
+          "text": "m=",
+          "confidence": 0.27531075,
+          "left": 202,
+          "top": 26,
+          "width": 14,
+          "height": 11
+        },
+        {
+          "text": "X",
+          "confidence": 0.84484055,
+          "left": 252,
+          "top": 25,
+          "width": 12,
+          "height": 12
+        },
+        {
+          "text": "192.168.5.215",
+          "confidence": 0.58675007,
+          "left": 277,
+          "top": 26,
+          "width": 96,
+          "height": 11
+        },
+        {
+          "text": "t",
+          "confidence": 0.0,
+          "left": 551,
+          "top": 30,
+          "width": 2,
+          "height": 3
+        },
+        {
+          "text": "4",
+          "confidence": 0.92261673,
+          "left": 755,
+          "top": 34,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "text": "0",
+          "confidence": 0.60038521,
+          "left": 796,
+          "top": 23,
+          "width": 18,
+          "height": 16
+        },
+        {
+          "text": "o",
+          "confidence": 0.7431134,
+          "left": 882,
+          "top": 27,
+          "width": 12,
+          "height": 10
+        },
+        {
+          "text": "x",
+          "confidence": 0.9521971100000001,
+          "left": 929,
+          "top": 29,
+          "width": 3,
+          "height": 3
+        },
+        {
+          "text": "iv]",
+          "confidence": 0.02313431,
+          "left": 962,
+          "top": 1,
+          "width": 50,
+          "height": 46
+        },
+        {
+          "text": "a]",
+          "confidence": 0.02313431,
+          "left": 1019,
+          "top": 1,
+          "width": 32,
+          "height": 46
+        },
+        {
+          "text": "@",
+          "confidence": 0.5934925799999999,
+          "left": 1062,
+          "top": 15,
+          "width": 19,
+          "height": 18
+        },
+        {
+          "text": "Center",
+          "confidence": 0.93035187,
+          "left": 1092,
+          "top": 19,
+          "width": 76,
+          "height": 11
+        },
+        {
+          "text": "A",
+          "confidence": 0.9414741499999999,
+          "left": 1140,
+          "top": 11,
+          "width": 3,
+          "height": 34
+        },
+        {
+          "text": "div",
+          "confidence": 0.8491178100000001,
+          "left": 1151,
+          "top": 11,
+          "width": 21,
+          "height": 34
+        },
+        {
+          "text": "*",
+          "confidence": 0.8038793200000001,
+          "left": 1316,
+          "top": 19,
+          "width": 10,
+          "height": 10
+        },
+        {
+          "text": "<html>",
+          "confidence": 0.84252167,
+          "left": 113,
+          "top": 66,
+          "width": 53,
+          "height": 12
+        },
+        {
+          "text": "\u20ac",
+          "confidence": 0.81990768,
+          "left": 976,
+          "top": 69,
+          "width": 9,
+          "height": 14
+        },
+        {
+          "text": "CO",
+          "confidence": 0.65213928,
+          "left": 1020,
+          "top": 68,
+          "width": 60,
+          "height": 17
+        },
+        {
+          "text": "20018..",
+          "confidence": 0.06912117000000001,
+          "left": 1094,
+          "top": 71,
+          "width": 99,
+          "height": 12
+        },
+        {
+          "text": "6",
+          "confidence": 0.0,
+          "left": 1278,
+          "top": 70,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "text": "FO",
+          "confidence": 0.48715763,
+          "left": 1319,
+          "top": 67,
+          "width": 62,
+          "height": 19
+        },
+        {
+          "text": "G14",
+          "confidence": 0.37808971,
+          "left": 1407,
+          "top": 68,
+          "width": 68,
+          "height": 19
+        },
+        {
+          "text": "FD",
+          "confidence": 0.5577675599999999,
+          "left": 1498,
+          "top": 68,
+          "width": 61,
+          "height": 17
+        },
+        {
+          "text": "FQ",
+          "confidence": 0.33452133000000006,
+          "left": 1584,
+          "top": 62,
+          "width": 64,
+          "height": 25
+        },
+        {
+          "text": "~",
+          "confidence": 0.33452133000000006,
+          "left": 1673,
+          "top": 76,
+          "width": 14,
+          "height": 2
+        },
+        {
+          "text": "Gora",
+          "confidence": 0.45086632000000004,
+          "left": 1714,
+          "top": 65,
+          "width": 62,
+          "height": 17
+        },
+        {
+          "text": "<head>",
+          "confidence": 0.9576421399999999,
+          "left": 190,
+          "top": 88,
+          "width": 53,
+          "height": 12
+        },
+        {
+          "text": "<title>center",
+          "confidence": 0.82665878,
+          "left": 266,
+          "top": 109,
+          "width": 122,
+          "height": 12
+        },
+        {
+          "text": "A",
+          "confidence": 0.89302605,
+          "left": 399,
+          "top": 111,
+          "width": 9,
+          "height": 10
+        },
+        {
+          "text": "Div</title>",
+          "confidence": 0.89200401,
+          "left": 419,
+          "top": 109,
+          "width": 103,
+          "height": 16
+        },
+        {
+          "text": "<style>",
+          "confidence": 0.95491745,
+          "left": 266,
+          "top": 131,
+          "width": 64,
+          "height": 15
+        },
+        {
+          "text": "\u00abcontainer",
+          "confidence": 0.33651787,
+          "left": 344,
+          "top": 153,
+          "width": 92,
+          "height": 11
+        },
+        {
+          "text": "{",
+          "confidence": 0.9306873299999999,
+          "left": 449,
+          "top": 153,
+          "width": 5,
+          "height": 15
+        },
+        {
+          "text": "r",
+          "confidence": 0.18415314,
+          "left": 1036,
+          "top": 166,
+          "width": 22,
+          "height": 22
+        },
+        {
+          "text": "margin:",
+          "confidence": 0.9313774100000001,
+          "left": 361,
+          "top": 221,
+          "width": 63,
+          "height": 12
+        },
+        {
+          "text": "S50px;",
+          "confidence": 0.25143166,
+          "left": 440,
+          "top": 221,
+          "width": 42,
+          "height": 12
+        },
+        {
+          "text": "outline:",
+          "confidence": 0.89193573,
+          "left": 361,
+          "top": 239,
+          "width": 73,
+          "height": 12
+        },
+        {
+          "text": "solid",
+          "confidence": 0.96786598,
+          "left": 467,
+          "top": 239,
+          "width": 26,
+          "height": 11
+        },
+        {
+          "text": "1px",
+          "confidence": 0.7714296,
+          "left": 509,
+          "top": 240,
+          "width": 20,
+          "height": 11
+        },
+        {
+          "text": "black;",
+          "confidence": 0.0,
+          "left": 544,
+          "top": 234,
+          "width": 66,
+          "height": 22
+        },
+        {
+          "text": "}",
+          "confidence": 0.9009552,
+          "left": 343,
+          "top": 261,
+          "width": 5,
+          "height": 14
+        },
+        {
+          "text": "\u00abcircle",
+          "confidence": 0.49905296,
+          "left": 344,
+          "top": 304,
+          "width": 63,
+          "height": 11
+        },
+        {
+          "text": "{",
+          "confidence": 0.92850006,
+          "left": 419,
+          "top": 304,
+          "width": 7,
+          "height": 15
+        },
+        {
+          "text": "width:",
+          "confidence": 0.92883759,
+          "left": 362,
+          "top": 329,
+          "width": 53,
+          "height": 8
+        },
+        {
+          "text": "50px;",
+          "confidence": 0.50989899,
+          "left": 430,
+          "top": 329,
+          "width": 43,
+          "height": 12
+        },
+        {
+          "text": "height:",
+          "confidence": 0.92901787,
+          "left": 362,
+          "top": 347,
+          "width": 62,
+          "height": 15
+        },
+        {
+          "text": "50px;",
+          "confidence": 0.75873421,
+          "left": 440,
+          "top": 348,
+          "width": 42,
+          "height": 14
+        },
+        {
+          "text": "border-radius:",
+          "confidence": 0.78547722,
+          "left": 365,
+          "top": 369,
+          "width": 126,
+          "height": 11
+        },
+        {
+          "text": "50%;",
+          "confidence": 0.76065994,
+          "left": 515,
+          "top": 372,
+          "width": 25,
+          "height": 12
+        },
+        {
+          "text": "background-color:",
+          "confidence": 0.9652244600000001,
+          "left": 362,
+          "top": 390,
+          "width": 158,
+          "height": 14
+        },
+        {
+          "text": "black;",
+          "confidence": 0.96889351,
+          "left": 544,
+          "top": 390,
+          "width": 44,
+          "height": 15
+        },
+        {
+          "text": "}",
+          "confidence": 0.86862381,
+          "left": 343,
+          "top": 412,
+          "width": 6,
+          "height": 15
+        },
+        {
+          "text": "</style>",
+          "confidence": 0.96379295,
+          "left": 266,
+          "top": 433,
+          "width": 73,
+          "height": 16
+        },
+        {
+          "text": "</head>",
+          "confidence": 0.96138634,
+          "left": 189,
+          "top": 455,
+          "width": 64,
+          "height": 15
+        },
+        {
+          "text": "<body>",
+          "confidence": 0.96153458,
+          "left": 190,
+          "top": 477,
+          "width": 53,
+          "height": 15
+        },
+        {
+          "text": "<div",
+          "confidence": 0.89167603,
+          "left": 266,
+          "top": 498,
+          "width": 36,
+          "height": 12
+        },
+        {
+          "text": "class=\"container\">",
+          "confidence": 0.8748416899999999,
+          "left": 314,
+          "top": 498,
+          "width": 169,
+          "height": 12
+        },
+        {
+          "text": "<div",
+          "confidence": 0.93031509,
+          "left": 324,
+          "top": 541,
+          "width": 36,
+          "height": 12
+        },
+        {
+          "text": "class=\"circle\">",
+          "confidence": 0.7956321,
+          "left": 371,
+          "top": 541,
+          "width": 141,
+          "height": 12
+        },
+        {
+          "text": "</div>",
+          "confidence": 0.9130931099999999,
+          "left": 324,
+          "top": 585,
+          "width": 54,
+          "height": 15
+        },
+        {
+          "text": "</div>",
+          "confidence": 0.84817383,
+          "left": 266,
+          "top": 628,
+          "width": 54,
+          "height": 15
+        },
+        {
+          "text": "</body>",
+          "confidence": 0.9616049200000001,
+          "left": 189,
+          "top": 649,
+          "width": 64,
+          "height": 16
+        },
+        {
+          "text": "</html>",
+          "confidence": 0.33240234,
+          "left": 113,
+          "top": 671,
+          "width": 63,
+          "height": 15
+        },
+        {
+          "text": "--",
+          "confidence": 0.40439606,
+          "left": 112,
+          "top": 1043,
+          "width": 17,
+          "height": 2
+        },
+        {
+          "text": "INSERT",
+          "confidence": 0.9113459,
+          "left": 141,
+          "top": 1039,
+          "width": 56,
+          "height": 11
+        },
+        {
+          "text": "--",
+          "confidence": 0.8215789,
+          "left": 208,
+          "top": 1043,
+          "width": 17,
+          "height": 2
+        },
+        {
+          "text": "9,31-52",
+          "confidence": 0.8982629400000001,
+          "left": 774,
+          "top": 1039,
+          "width": 66,
+          "height": 14
+        },
+        {
+          "text": "ALL",
+          "confidence": 0.9161663099999999,
+          "left": 908,
+          "top": 1038,
+          "width": 28,
+          "height": 12
+        }
+      ]
+    },
+    {
+      "timestamp": 5.04,
+      "frame_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/frames/frame-0001-0000005040.jpg",
+      "engine": "tesseract",
+      "text": "\u00a9 wm X 192168.5.215 : 40 o x @ Center A div so\n<html> \u20ac CO 12001888.. Y OE \u00a9 Gla FD FQ - Gor\n<head>\n<titlecenter A Div</title>\n<style>\n\u00abcontainer {\nwidth: 509px; ry\nmargin: 50px;\noutline: solid 1px black;\ndisplay: flex;\njustify-content: center;\nalign-items: center;\n}\n-circle {\nborder-radius: 50%;\nbackground-color: black;\n}\n</style>\n</head>\n<body>\n<div class=\"container\">\n<div class=\"circle\">\n</div>\n</div>\n</body>\n</html>",
+      "mean_confidence": 0.716197970909091,
+      "words": [
+        {
+          "text": "\u00a9",
+          "confidence": 0.66859093,
+          "left": 159,
+          "top": 24,
+          "width": 16,
+          "height": 14
+        },
+        {
+          "text": "wm",
+          "confidence": 0.2411496,
+          "left": 202,
+          "top": 26,
+          "width": 14,
+          "height": 11
+        },
+        {
+          "text": "X",
+          "confidence": 0.36381439,
+          "left": 252,
+          "top": 25,
+          "width": 12,
+          "height": 12
+        },
+        {
+          "text": "192168.5.215",
+          "confidence": 0.75898758,
+          "left": 277,
+          "top": 26,
+          "width": 96,
+          "height": 11
+        },
+        {
+          "text": ":",
+          "confidence": 0.76833878,
+          "left": 551,
+          "top": 30,
+          "width": 2,
+          "height": 3
+        },
+        {
+          "text": "40",
+          "confidence": 0.6599067700000001,
+          "left": 755,
+          "top": 23,
+          "width": 59,
+          "height": 16
+        },
+        {
+          "text": "o",
+          "confidence": 0.77423012,
+          "left": 882,
+          "top": 27,
+          "width": 12,
+          "height": 10
+        },
+        {
+          "text": "x",
+          "confidence": 0.9349415600000001,
+          "left": 929,
+          "top": 29,
+          "width": 3,
+          "height": 3
+        },
+        {
+          "text": "@",
+          "confidence": 0.49583992000000005,
+          "left": 1062,
+          "top": 19,
+          "width": 3,
+          "height": 10
+        },
+        {
+          "text": "Center",
+          "confidence": 0.8999497200000001,
+          "left": 1092,
+          "top": 19,
+          "width": 76,
+          "height": 11
+        },
+        {
+          "text": "A",
+          "confidence": 0.91716599,
+          "left": 1141,
+          "top": 11,
+          "width": 4,
+          "height": 37
+        },
+        {
+          "text": "div",
+          "confidence": 0.92387024,
+          "left": 1150,
+          "top": 11,
+          "width": 23,
+          "height": 37
+        },
+        {
+          "text": "so",
+          "confidence": 0.35413673,
+          "left": 1316,
+          "top": 19,
+          "width": 10,
+          "height": 10
+        },
+        {
+          "text": "<html>",
+          "confidence": 0.70763374,
+          "left": 113,
+          "top": 66,
+          "width": 53,
+          "height": 12
+        },
+        {
+          "text": "\u20ac",
+          "confidence": 0.7679239699999999,
+          "left": 976,
+          "top": 69,
+          "width": 9,
+          "height": 14
+        },
+        {
+          "text": "CO",
+          "confidence": 0.36937057,
+          "left": 1020,
+          "top": 68,
+          "width": 60,
+          "height": 17
+        },
+        {
+          "text": "12001888..",
+          "confidence": 0.03603218,
+          "left": 1094,
+          "top": 71,
+          "width": 100,
+          "height": 12
+        },
+        {
+          "text": "Y",
+          "confidence": 0.25619803999999996,
+          "left": 1244,
+          "top": 73,
+          "width": 4,
+          "height": 12
+        },
+        {
+          "text": "OE",
+          "confidence": 0.03603043,
+          "left": 1278,
+          "top": 67,
+          "width": 60,
+          "height": 19
+        },
+        {
+          "text": "\u00a9",
+          "confidence": 0.1390416,
+          "left": 1362,
+          "top": 67,
+          "width": 19,
+          "height": 19
+        },
+        {
+          "text": "Gla",
+          "confidence": 0.11777969,
+          "left": 1407,
+          "top": 68,
+          "width": 68,
+          "height": 19
+        },
+        {
+          "text": "FD",
+          "confidence": 0.64263519,
+          "left": 1498,
+          "top": 68,
+          "width": 61,
+          "height": 17
+        },
+        {
+          "text": "FQ",
+          "confidence": 0.38151985000000005,
+          "left": 1584,
+          "top": 62,
+          "width": 64,
+          "height": 25
+        },
+        {
+          "text": "-",
+          "confidence": 0.0,
+          "left": 1673,
+          "top": 76,
+          "width": 14,
+          "height": 2
+        },
+        {
+          "text": "Gor",
+          "confidence": 0.60151279,
+          "left": 1714,
+          "top": 65,
+          "width": 62,
+          "height": 17
+        },
+        {
+          "text": "<head>",
+          "confidence": 0.9612483199999999,
+          "left": 190,
+          "top": 88,
+          "width": 53,
+          "height": 12
+        },
+        {
+          "text": "<titlecenter",
+          "confidence": 0.12598587,
+          "left": 266,
+          "top": 109,
+          "width": 122,
+          "height": 12
+        },
+        {
+          "text": "A",
+          "confidence": 0.9281948099999999,
+          "left": 399,
+          "top": 111,
+          "width": 9,
+          "height": 10
+        },
+        {
+          "text": "Div</title>",
+          "confidence": 0.86155785,
+          "left": 419,
+          "top": 109,
+          "width": 103,
+          "height": 16
+        },
+        {
+          "text": "<style>",
+          "confidence": 0.96155487,
+          "left": 266,
+          "top": 131,
+          "width": 64,
+          "height": 15
+        },
+        {
+          "text": "\u00abcontainer",
+          "confidence": 0.16226212,
+          "left": 344,
+          "top": 153,
+          "width": 92,
+          "height": 11
+        },
+        {
+          "text": "{",
+          "confidence": 0.92513283,
+          "left": 449,
+          "top": 153,
+          "width": 6,
+          "height": 15
+        },
+        {
+          "text": "width:",
+          "confidence": 0.91504143,
+          "left": 362,
+          "top": 174,
+          "width": 53,
+          "height": 12
+        },
+        {
+          "text": "509px;",
+          "confidence": 0.76013634,
+          "left": 430,
+          "top": 177,
+          "width": 52,
+          "height": 12
+        },
+        {
+          "text": "ry",
+          "confidence": 0.04996414,
+          "left": 1036,
+          "top": 166,
+          "width": 22,
+          "height": 22
+        },
+        {
+          "text": "margin:",
+          "confidence": 0.93014359,
+          "left": 361,
+          "top": 221,
+          "width": 63,
+          "height": 12
+        },
+        {
+          "text": "50px;",
+          "confidence": 0.77206772,
+          "left": 440,
+          "top": 221,
+          "width": 42,
+          "height": 12
+        },
+        {
+          "text": "outline:",
+          "confidence": 0.96271805,
+          "left": 361,
+          "top": 239,
+          "width": 73,
+          "height": 12
+        },
+        {
+          "text": "solid",
+          "confidence": 0.96967117,
+          "left": 468,
+          "top": 239,
+          "width": 25,
+          "height": 11
+        },
+        {
+          "text": "1px",
+          "confidence": 0.94954712,
+          "left": 509,
+          "top": 240,
+          "width": 20,
+          "height": 10
+        },
+        {
+          "text": "black;",
+          "confidence": 0.9650869799999999,
+          "left": 554,
+          "top": 239,
+          "width": 43,
+          "height": 15
+        },
+        {
+          "text": "display:",
+          "confidence": 0.95759598,
+          "left": 361,
+          "top": 261,
+          "width": 73,
+          "height": 15
+        },
+        {
+          "text": "flex;",
+          "confidence": 0.95759598,
+          "left": 449,
+          "top": 264,
+          "width": 43,
+          "height": 12
+        },
+        {
+          "text": "justify-content:",
+          "confidence": 0.8812022399999999,
+          "left": 363,
+          "top": 282,
+          "width": 148,
+          "height": 12
+        },
+        {
+          "text": "center;",
+          "confidence": 0.9693552400000001,
+          "left": 534,
+          "top": 285,
+          "width": 54,
+          "height": 12
+        },
+        {
+          "text": "align-items:",
+          "confidence": 0.43820465,
+          "left": 362,
+          "top": 304,
+          "width": 110,
+          "height": 15
+        },
+        {
+          "text": "center;",
+          "confidence": 0.96918449,
+          "left": 496,
+          "top": 307,
+          "width": 53,
+          "height": 12
+        },
+        {
+          "text": "}",
+          "confidence": 0.93062027,
+          "left": 343,
+          "top": 325,
+          "width": 5,
+          "height": 15
+        },
+        {
+          "text": "-circle",
+          "confidence": 0.52476196,
+          "left": 344,
+          "top": 368,
+          "width": 63,
+          "height": 12
+        },
+        {
+          "text": "{",
+          "confidence": 0.92368645,
+          "left": 420,
+          "top": 369,
+          "width": 6,
+          "height": 15
+        },
+        {
+          "text": "border-radius:",
+          "confidence": 0.91512321,
+          "left": 362,
+          "top": 434,
+          "width": 129,
+          "height": 11
+        },
+        {
+          "text": "50%;",
+          "confidence": 0.92481033,
+          "left": 507,
+          "top": 437,
+          "width": 33,
+          "height": 11
+        },
+        {
+          "text": "background-color:",
+          "confidence": 0.95146286,
+          "left": 362,
+          "top": 455,
+          "width": 158,
+          "height": 15
+        },
+        {
+          "text": "black;",
+          "confidence": 0.92430161,
+          "left": 544,
+          "top": 455,
+          "width": 44,
+          "height": 15
+        },
+        {
+          "text": "}",
+          "confidence": 0.92350136,
+          "left": 343,
+          "top": 477,
+          "width": 5,
+          "height": 14
+        },
+        {
+          "text": "</style>",
+          "confidence": 0.96435768,
+          "left": 266,
+          "top": 498,
+          "width": 73,
+          "height": 16
+        },
+        {
+          "text": "</head>",
+          "confidence": 0.96770493,
+          "left": 190,
+          "top": 520,
+          "width": 63,
+          "height": 15
+        },
+        {
+          "text": "<body>",
+          "confidence": 0.96620308,
+          "left": 189,
+          "top": 541,
+          "width": 54,
+          "height": 16
+        },
+        {
+          "text": "<div",
+          "confidence": 0.89990784,
+          "left": 266,
+          "top": 563,
+          "width": 36,
+          "height": 12
+        },
+        {
+          "text": "class=\"container\">",
+          "confidence": 0.89076004,
+          "left": 314,
+          "top": 563,
+          "width": 169,
+          "height": 12
+        },
+        {
+          "text": "<div",
+          "confidence": 0.93176888,
+          "left": 324,
+          "top": 606,
+          "width": 36,
+          "height": 12
+        },
+        {
+          "text": "class=\"circle\">",
+          "confidence": 0.89307205,
+          "left": 371,
+          "top": 606,
+          "width": 141,
+          "height": 12
+        },
+        {
+          "text": "</div>",
+          "confidence": 0.9393328099999999,
+          "left": 324,
+          "top": 649,
+          "width": 54,
+          "height": 16
+        },
+        {
+          "text": "</div>",
+          "confidence": 0.94027321,
+          "left": 266,
+          "top": 693,
+          "width": 54,
+          "height": 15
+        },
+        {
+          "text": "</body>",
+          "confidence": 0.96008186,
+          "left": 189,
+          "top": 714,
+          "width": 64,
+          "height": 15
+        },
+        {
+          "text": "</html>",
+          "confidence": 0.70728348,
+          "left": 113,
+          "top": 736,
+          "width": 63,
+          "height": 15
+        }
+      ]
+    }
+  ],
+  "ocr_engine": "tesseract",
+  "ocr_path": "/home/stephen/projects/video-document-agent/artifacts/fe32a31196fd/ocr.json"
+}

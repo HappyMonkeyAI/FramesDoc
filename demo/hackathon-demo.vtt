@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00.000 --> 00:02.400
+To center that div, we will use Flexbox.
+
+00:02.400 --> 00:05.040
+Just add justify content and item center.
+
+00:05.040 --> 00:08.040
+Now to exit VIM, hit Escape, then colon wq! to save.
+
+00:08.040 --> 00:09.200
+Ah, that makes perfect sense.
+
+00:09.200 --> 00:10.040
+Thank you.

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Centering a Child Element with Flexbox in Vim</title></head>
+<body><main><h1>Centering a Child Element with Flexbox in Vim</h1><p>The evidence shows the container CSS updated to use Flexbox for horizontal and vertical centering, followed by instructions to save and exit Vim.</p>
+<video controls preload="metadata" width="900" src="source.mp4"></video>
+<article>
+<h2>1. Add Flexbox centering to the container</h2>
+<p><span>setup</span> · <a href="source.mp4#t=5.040">00:00:05</a> · confidence 99%</p>
+<p>Set the container to a flex layout, then center its child on both axes with `justify-content` and `align-items`.</p>
+<img src="frames/frame-0001-0000005040.jpg" alt="Evidence at 00:00:05">
+<h3>Commands</h3><pre>display: flex;
+justify-content: center;
+align-items: center;</pre>
+<h3>Visible text</h3><pre>.container {
+  width: 500px;
+  height: 250px;
+  margin: 50px;
+  outline: solid 1px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}</pre>
+<h3>OCR corroboration (72% mean word confidence)</h3><pre>© wm X 192168.5.215 : 40 o x @ Center A div so
+&lt;html&gt; € CO 12001888.. Y OE © Gla FD FQ - Gor
+&lt;head&gt;
+&lt;titlecenter A Div&lt;/title&gt;
+&lt;style&gt;
+«container {
+width: 509px; ry
+margin: 50px;
+outline: solid 1px black;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+-circle {
+border-radius: 50%;
+background-color: black;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;div class=&quot;circle&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>Command/OCR agreement: 100%</p>
+<h3>Transcript evidence</h3><blockquote>Now to exit VIM, hit Escape, then colon wq! to save.</blockquote><p>Span: 00:00:05–00:00:08</p>
+</article><article>
+<h2>2. Save and exit Vim</h2>
+<p><span>command</span> · <a href="source.mp4#t=5.040">00:00:05</a> · confidence 94%</p>
+<p>Leave insert mode with Escape, then use the Vim write-and-quit command with force.</p>
+<img src="frames/frame-0001-0000005040.jpg" alt="Evidence at 00:00:05">
+<h3>Commands</h3><pre>Escape
+:wq!</pre>
+<h3>Visible text</h3><pre>:</pre>
+<h3>OCR corroboration (72% mean word confidence)</h3><pre>© wm X 192168.5.215 : 40 o x @ Center A div so
+&lt;html&gt; € CO 12001888.. Y OE © Gla FD FQ - Gor
+&lt;head&gt;
+&lt;titlecenter A Div&lt;/title&gt;
+&lt;style&gt;
+«container {
+width: 509px; ry
+margin: 50px;
+outline: solid 1px black;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+-circle {
+border-radius: 50%;
+background-color: black;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;div class=&quot;circle&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>Command/OCR agreement: 40%</p>
+<h3>Transcript evidence</h3><blockquote>Now to exit VIM, hit Escape, then colon wq! to save.</blockquote><p>Span: 00:00:05–00:00:08</p>
+</article>
+<h2>Limitations</h2><ul><li>The browser preview in frame 1 still shows the circle at the upper-left of the container, so the centered result is not visually confirmed; the page may not yet have been saved or refreshed.</li><li>Only the initial colon is visible on Vim&#x27;s command line. The full `:wq!` command is supported by the transcript rather than shown completely in the frame.</li></ul>
+</main></body></html>

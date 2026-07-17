@@ -39,6 +39,12 @@ class VideoDocumentPipeline:
         video_path = video_path.resolve()
         if not video_path.is_file():
             raise FileNotFoundError(video_path)
+        
+        # Print model details for demo presentation
+        print("Transcription model: gpt-4o-transcribe-diarize")
+        print("Analysis model: gpt-5.6-sol")
+        ocr_engine = resolve_ocr_engine(self.config.ocr_mode)
+        print(f"OCR engine: {ocr_engine or 'tesseract'}")
         transcript_input = self.config.transcript_path.resolve() if self.config.transcript_path else None
         if transcript_input is not None and not transcript_input.is_file():
             raise FileNotFoundError(transcript_input)
@@ -88,6 +94,7 @@ class VideoDocumentPipeline:
             ocr_path = None
         document = agent.create_document(frames, transcript)
         document = corroborate_document(document, ocr)
+        print("Writing manifest and document artifacts")
         markdown_path = render_markdown(document, source_video, job_dir / "document.md")
         html_path = render_html(document, source_video, job_dir / "document.html")
         manifest = PipelineManifest(

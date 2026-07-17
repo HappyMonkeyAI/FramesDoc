@@ -22,7 +22,9 @@ Do not produce a generic meeting summary. Select only moments that support setup
 commands, warnings, decisions, workflows, or references. Every moment must point to one
 provided frame index. Copy commands and visible text conservatively; never invent text
 that is not visible or supported by the transcript. Return limitations when evidence is
-ambiguous. Prefer a small number of high-value moments over exhaustive narration."""
+ambiguous. Prefer a small number of high-value moments over exhaustive narration.
+
+Note: The input images are provided in the exact order of their frame indices (the first image corresponds to FRAME 0, the second image to FRAME 1, the third image to FRAME 2, etc.). Use the visual evidence in each image to correctly identify which FRAME contains the setup steps, commands, or warnings."""
 
 
 def _data_url(path: Path) -> str:
@@ -103,20 +105,20 @@ class OpenAIDocumentAgent:
         frames: list[FrameCandidate],
         transcript: list[TranscriptSegment],
     ) -> GeneratedDocument:
+        # Content for Responses API (new OpenAI responses endpoint) - Interleaved
         content: list[dict[str, str]] = [
             {
                 "type": "input_text",
-                "text": (
-                    "Analyze the numbered evidence frames and their nearby transcript. "
-                    "Use frame_index values exactly as provided.\n\n"
-                    + "\n\n".join(
-                        _frame_context(index, frame, nearby_transcript(frame.timestamp, transcript))
-                        for index, frame in enumerate(frames)
-                    )
-                ),
+                "text": "Analyze the numbered evidence frames and their nearby transcript. Use frame_index values exactly as provided.\n\n",
             }
         ]
-        for frame in frames:
+        for index, frame in enumerate(frames):
+            content.append(
+                {
+                    "type": "input_text",
+                    "text": _frame_context(index, frame, nearby_transcript(frame.timestamp, transcript)),
+                }
+            )
             content.append(
                 {
                     "type": "input_image",
@@ -145,7 +147,7 @@ def _frame_context(
     transcript: list[TranscriptSegment],
 ) -> str:
     lines = [
-        f"FRAME {index}",
+        f"FRAME {index} (Note: This corresponds to Vision Image #{index + 1} below)",
         f"timestamp_seconds: {frame.timestamp:.3f}",
         f"candidate_sources: {', '.join(frame.sources)}",
         "nearby_transcript:",
