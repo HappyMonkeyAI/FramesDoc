@@ -155,7 +155,6 @@ Override model names with `VIDEO_DOC_TRANSCRIPTION_MODEL` and `VIDEO_DOC_ANALYSI
 - `CONTEXT.md` captures current architecture and constraints.
 - `DEMO.md` is the recording, rehearsal, evaluation, and live-pass runbook.
 - `AGENTS.md` contains project-specific agent rules.
-- `HERMES.md` records the local Agents Protocol operating loop.
 - `.agent/memories/` stores long-term memory for future agents.
 - `docs/adr/` stores architecture decision records.
 - `research/LINKS.md` records evaluated external projects and official documentation.
