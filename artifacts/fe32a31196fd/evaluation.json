@@ -1,0 +1,18 @@
+{
+  "fixture_name": "12-second demo runbook",
+  "expected_moments": 3,
+  "matched_moments": 0,
+  "useful_moment_recall": 0.0,
+  "redundant_frames": 1,
+  "evaluated_frame_pairs": 1,
+  "redundant_frame_rate": 1.0,
+  "grounded_moments": 2,
+  "generated_moments": 2,
+  "evidence_grounding_rate": 1.0,
+  "command_ocr_agreement": 0.7,
+  "unmatched_labels": [
+    "prepare workspace",
+    "run setup command",
+    "retain evidence warning"
+  ]
+}

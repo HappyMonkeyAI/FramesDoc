@@ -6,17 +6,17 @@ Video Document Agent turns team meeting recordings into timestamped internal doc
 
 An AI documentation agent that watches meeting recordings, finds the important on-screen moments, and turns them into linked runbooks and knowledge pages.
 
-## Built With Codex And GPT-5.6
+## Built With Codex And GPT-5.6-Sol
 
-This project was created for [OpenAI Build Week](https://openai.devpost.com/) using **Codex with GPT-5.6**.
+This project was created for [OpenAI Build Week](https://openai.devpost.com/) using **Codex with GPT-5.6-Sol**.
 
 - **Codex accelerated the complete development workflow:** product research, architecture, implementation, test generation, debugging, documentation, demo planning, and incremental verification.
-- **GPT-5.6 is part of the product:** live mode uses GPT-5.6 vision and Structured Outputs to turn selected video frames and nearby transcript evidence into typed documentation moments.
+- **GPT-5.6 is part of the product:** live mode uses GPT-5.6-Sol vision and Structured Outputs to turn selected video frames and nearby transcript evidence into typed documentation moments.
 - **Key decisions are inspectable:** the local-first evidence contract, hybrid frame selection, grounded model output, sidecar transcripts, human review, OCR corroboration, and evaluation strategy are recorded in [`docs/adr/`](docs/adr/) and the Agents Protocol memory under [`.agent/memories/`](.agent/memories/).
 
-The repository intentionally keeps generated claims traceable to source frames, video timestamps, and transcript spans. This reflects the central design direction developed with Codex: use GPT-5.6 for multimodal understanding while retaining provenance and human review in application-owned code.
+The repository intentionally keeps generated claims traceable to source frames, video timestamps, and transcript spans. This reflects the central design direction developed with Codex: use GPT-5.6-Sol for multimodal understanding while retaining provenance and human review in application-owned code.
 
-![Live video-to-document run showing GPT-5.6 analysis, Tesseract OCR, and generated evidence artifacts](<screenshots/Screenshot 2026-07-17 124140.png>)
+![Live video-to-document run showing GPT-5.6-Sol analysis, Tesseract OCR, and generated evidence artifacts](<screenshots/Screenshot 2026-07-17 124140.png>)
 
 _A live run produces the transcript, selected frames, OCR observations, typed manifest, Markdown, and HTML as inspectable artifacts._
 
@@ -27,7 +27,7 @@ The runnable MVP accepts one local video and produces:
 - Speaker-labelled transcript segments from OpenAI or SRT/VTT/JSON sidecars
 - Hybrid keyframes selected from scene changes, periodic sampling, transcript cues, and visual novelty
 - Optional Tesseract OCR with word confidence, bounding boxes, and command-text agreement
-- GPT-5.6-generated setup, command, warning, decision, workflow, and reference moments
+- GPT-5.6-Sol-generated setup, command, warning, decision, workflow, and reference moments
 - Locally reattached evidence paths and timestamps that model output cannot override
 - `manifest.json`, `document.md`, `document.html`, source video, audio, and extracted frames
 - A Streamlit accept/edit/reject workflow with separate reviewed exports
@@ -160,7 +160,7 @@ _The keyless verification loop runs the test suite and reports useful-moment rec
 ## Model Defaults
 
 - Transcription: `gpt-4o-transcribe-diarize`
-- Evidence selection and documentation synthesis: `gpt-5.6`
+- Evidence selection and documentation synthesis: `gpt-5.6-sol`
 - Frame detail: `original`, because terminal and UI text can be spatially dense
 
 Override model names with `VIDEO_DOC_TRANSCRIPTION_MODEL` and `VIDEO_DOC_ANALYSIS_MODEL`.
@@ -177,7 +177,7 @@ Override model names with `VIDEO_DOC_TRANSCRIPTION_MODEL` and `VIDEO_DOC_ANALYSI
 ## Known Limitations
 
 - Live OpenAI calls require credentials and were not exercised during the credential-free bootstrap.
-- Deterministic mode uses transcript evidence but does not interpret frame contents or replace GPT-5.6 synthesis quality.
+- Deterministic mode uses transcript evidence but does not interpret frame contents or replace GPT-5.6-Sol synthesis quality.
 - Tesseract confidence is an engine signal, not proof that command text is correct; command/OCR agreement is also heuristic.
 - Scene detection and perceptual hashes are candidate filters, not guarantees that every useful terminal change is found.
 - Model-read visible text should be reviewed before commands are executed.
