@@ -6,6 +6,16 @@ Video Document Agent turns team meeting recordings into timestamped internal doc
 
 An AI documentation agent that watches meeting recordings, finds the important on-screen moments, and turns them into linked runbooks and knowledge pages.
 
+## Built With Codex And GPT-5.6
+
+This project was created for [OpenAI Build Week](https://openai.devpost.com/) using **Codex with GPT-5.6**.
+
+- **Codex accelerated the complete development workflow:** product research, architecture, implementation, test generation, debugging, documentation, demo planning, and incremental verification.
+- **GPT-5.6 is part of the product:** live mode uses GPT-5.6 vision and Structured Outputs to turn selected video frames and nearby transcript evidence into typed documentation moments.
+- **Key decisions are inspectable:** the local-first evidence contract, hybrid frame selection, grounded model output, sidecar transcripts, human review, OCR corroboration, and evaluation strategy are recorded in [`docs/adr/`](docs/adr/) and the Agents Protocol memory under [`.agent/memories/`](.agent/memories/).
+
+The repository intentionally keeps generated claims traceable to source frames, video timestamps, and transcript spans. This reflects the central design direction developed with Codex: use GPT-5.6 for multimodal understanding while retaining provenance and human review in application-owned code.
+
 ## Current Vertical Slice
 
 The runnable MVP accepts one local video and produces:

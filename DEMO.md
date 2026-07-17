@@ -2,7 +2,7 @@
 
 ## Goal
 
-Record one 3–5 minute screen-sharing walkthrough that demonstrates ephemeral team knowledge becoming a grounded runbook.
+Record one 2:30–2:50 screen-sharing walkthrough that demonstrates ephemeral team knowledge becoming a grounded runbook. The submitted public video must remain under three minutes.
 
 ## 1. Demo Scenario
 
@@ -42,17 +42,17 @@ input.mp4
 
 ## 3. Suggested Timeline
 
-### 00:00–00:30 — Introduce The Problem
+### 00:00–00:15 — Introduce The Problem And Build Provenance
 
 Show the project README.
 
 Say:
 
-> This project turns screen-shared meeting knowledge into evidence-backed documentation. I’ll show the keyless local workflow.
+> This project turns screen-shared meeting knowledge into evidence-backed documentation. I built it with Codex using GPT-5.6 for research, architecture, implementation, testing, and demo preparation. The product itself uses GPT-5.6 vision and Structured Outputs for grounded documentation synthesis. I’ll show the keyless workflow that judges can run without credentials.
 
 Avoid a long product introduction. The pipeline needs actionable spoken and visual evidence.
 
-### 00:30–01:15 — Setup Moment
+### 00:15–00:45 — Setup Moment
 
 Show the repository and terminal.
 
@@ -73,7 +73,7 @@ Keep the successful output visible briefly.
 
 Expected classification: `setup`.
 
-### 01:15–02:00 — Command Moment
+### 00:45–01:15 — Command Moment
 
 Clear the terminal so the main command is visually isolated.
 
@@ -94,7 +94,7 @@ Keep the complete command visible for 5–8 seconds.
 
 Expected classification: `command`.
 
-### 02:00–02:40 — Warning Moment
+### 01:15–01:40 — Warning Moment
 
 Show the generated artifact directory.
 
@@ -117,7 +117,7 @@ artifacts/<job>/
 
 Expected classification: `warning`.
 
-### 02:40–03:30 — Review Workflow
+### 01:40–02:20 — Review Workflow
 
 Launch the interface:
 
@@ -139,7 +139,7 @@ Say:
 
 > The reviewer can correct descriptive content and transcript spans, but the source frame and video timestamp remain fixed.
 
-### 03:30–04:00 — Verification
+### 02:20–02:45 — Verification
 
 Show the evaluation command:
 
@@ -158,16 +158,16 @@ Prefer an exported WebVTT transcript. If necessary, create one manually:
 ```vtt
 WEBVTT
 
-00:00:30.000 --> 00:01:15.000
+00:00:15.000 --> 00:00:45.000
 Stephen: Open the project workspace and make sure Python, uv, FFmpeg, and Tesseract are available.
 
-00:01:15.000 --> 00:02:00.000
+00:00:45.000 --> 00:01:15.000
 Stephen: Run this command with the timestamped transcript to generate the keyless runbook and OCR evidence.
 
-00:02:00.000 --> 00:02:40.000
+00:01:15.000 --> 00:01:40.000
 Stephen: The important warning is that deterministic mode validates the pipeline, but it does not validate GPT-5.6 synthesis quality.
 
-00:02:40.000 --> 00:03:30.000
+00:01:40.000 --> 00:02:20.000
 Stephen: The reviewer can correct the content while the source frame and video timestamp remain fixed.
 ```
 
@@ -206,19 +206,19 @@ Create `evaluation/fixtures/hackathon-demo.json` before looking at the generated
   "expected_moments": [
     {
       "label": "local prerequisites",
-      "timestamp": 30,
+      "timestamp": 15,
       "tolerance": 8,
       "kind": "setup"
     },
     {
       "label": "keyless generation command",
-      "timestamp": 75,
+      "timestamp": 45,
       "tolerance": 8,
       "kind": "command"
     },
     {
       "label": "deterministic mode warning",
-      "timestamp": 120,
+      "timestamp": 75,
       "tolerance": 8,
       "kind": "warning"
     }
@@ -240,6 +240,8 @@ The recording is demo-ready when:
 - Visual redundancy is understood and preferably below 40%.
 - The Streamlit review produces separate reviewed artifacts.
 - No secrets or personal information appear in any frame.
+- The final public video is under three minutes, preferably no longer than 2:50.
+- The audio explicitly explains how Codex accelerated development and how GPT-5.6 is used in the product.
 - The complete workflow finishes comfortably within the presentation time.
 
 ## 8. Final Live-Model Pass
@@ -259,3 +261,5 @@ uv run video-doc demo/hackathon-demo.mp4 \
 Compare the live and deterministic manifests. The final submission should demonstrate live GPT-5.6 synthesis, while the keyless rehearsal remains the repeatable fallback.
 
 The most important recording constraint is visual clarity: large text, deliberate screen changes, explicit spoken cue words, and several seconds of dwell time on every command or warning.
+
+Before submission, run `/feedback` in the primary Codex session and add that session ID to the Devpost submission form.
