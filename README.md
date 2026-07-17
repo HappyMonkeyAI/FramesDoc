@@ -16,6 +16,10 @@ This project was created for [OpenAI Build Week](https://openai.devpost.com/) us
 
 The repository intentionally keeps generated claims traceable to source frames, video timestamps, and transcript spans. This reflects the central design direction developed with Codex: use GPT-5.6 for multimodal understanding while retaining provenance and human review in application-owned code.
 
+![Live video-to-document run showing GPT-5.6 analysis, Tesseract OCR, and generated evidence artifacts](<screenshots/Screenshot 2026-07-17 124140.png>)
+
+_A live run produces the transcript, selected frames, OCR observations, typed manifest, Markdown, and HTML as inspectable artifacts._
+
 ## Current Vertical Slice
 
 The runnable MVP accepts one local video and produces:
@@ -30,6 +34,12 @@ The runnable MVP accepts one local video and produces:
 - Labelled evaluation for moment recall, visual redundancy, evidence grounding, and OCR agreement
 
 Deterministic mode performs real media probing and frame extraction. Without a sidecar it uses a synthetic transcript; with `--transcript` it uses the supplied real transcript for frame cues and evidence quotations. Document analysis remains deterministic and clearly labelled, making the complete workflow runnable without credentials.
+
+<p align="center">
+  <img src="screenshots/Screenshot%202026-07-17%20123202.png" alt="Streamlit review interface with editable evidence-backed moments" width="700">
+</p>
+
+_The Streamlit reviewer supports accept/reject decisions and audited edits while keeping video timestamps and frame paths fixed._
 
 ## Prerequisites
 
@@ -122,6 +132,16 @@ Every documentation moment retains its source timestamp, frame path, transcript 
 
 OCR text never overwrites model-visible text. The manifest retains both sources plus the normalized agreement score for extracted commands. `ocr.json` also retains word-level locations and confidence values.
 
+### Generated Reports
+
+![Generated Markdown report containing a typed setup moment, source timestamp, commands, visible text, and transcript evidence](<screenshots/Screenshot 2026-07-17 124212.png>)
+
+_The Markdown export is ready for knowledge repositories and retains typed moments, source timestamps, commands, visible text, and transcript evidence._
+
+![Portable HTML runbook with video playback, timestamped evidence, and generated documentation](<screenshots/Screenshot 2026-07-17 124226.png>)
+
+_The deliberately unstyled HTML export stays portable while providing source-video playback, timestamp links, evidence frames, and documentation sections._
+
 ## Evaluation
 
 Evaluation fixtures are independent JSON labels rather than snapshots of generated output. Current metrics are:
@@ -132,6 +152,10 @@ Evaluation fixtures are independent JSON labels rather than snapshots of generat
 - Command/OCR agreement when both signals exist
 
 See `evaluation/README.md`. The included fixture is a schema and smoke-test example; label the actual hackathon recording before reporting its metrics.
+
+![Passing pytest suite and video-doc-eval output showing recall, redundancy, grounding, and command OCR agreement](<screenshots/Screenshot 2026-07-17 122715.png>)
+
+_The keyless verification loop runs the test suite and reports useful-moment recall, visual redundancy, evidence grounding, and command/OCR agreement separately._
 
 ## Model Defaults
 
